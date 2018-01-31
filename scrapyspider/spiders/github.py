@@ -25,16 +25,16 @@ class GithubSpider(scrapy.Spider):
         yield scrapy.Request('https://api.github.com/users/' + login + '/following?', callback=self.parse_follow)
 
     def fuck_the_user(self, login):
-        yield scrapy.Request('https://api.github.com/users/' + login, callback=self.parse)
+        return scrapy.Request('https://api.github.com/users/' + login, callback=self.parse)
 
     def parse_follow(self, response):
         data = json.loads(response.body_as_unicode())
         for user in data:
-            yield self.fuck_the_user(user['login'])
+            pass
+            # yield self.fuck_the_user(user['login'])
         # next pages
-        links = response.headers['Link']
-        if links:
-            links = requests.utils.parse_header_links(links.rstrip('>').replace('>,<', ',<'))
+        if 'Link' in response.headers and response.headers['Link']:
+            links = requests.utils.parse_header_links(response.headers['Link'].rstrip('>').replace('>,<', ',<'))
             for link in links:
                 if link['rel'] == 'next':
                     if link['url']:
