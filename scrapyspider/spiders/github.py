@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 
 import requests
@@ -13,7 +12,7 @@ class GithubSpider(scrapy.Spider):
     def parse(self, response):
         data = json.loads(response.body_as_unicode())
         login = data['login']
-        print login
+        print(login)
         for request in self.handle_user_for_follow(login):
             yield request
 
@@ -32,6 +31,7 @@ class GithubSpider(scrapy.Spider):
         for user in data:
             pass
             # yield self.fuck_the_user(user['login'])
+        return
         # next pages
         if 'Link' in response.headers and response.headers['Link']:
             links = requests.utils.parse_header_links(response.headers['Link'].rstrip('>').replace('>,<', ',<'))
