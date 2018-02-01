@@ -4,6 +4,36 @@ import urllib
 import pymongo
 import scrapy
 
+from scrapyspider.items import UserItem, FollowItem
+
+
+class TestPipeline(object):
+
+    def __init__(self):
+        pass
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls()
+
+    def open_spider(self, spider):
+        pass
+
+    def close_spider(self, spider):
+        pass
+
+    def process_item(self, item, spider):
+        if isinstance(item, UserItem):
+            print(item['login'])
+        elif isinstance(item, FollowItem):
+            login = item['login']
+            if 'following_login' in item:
+                print("%s follows %s" % (login, [i['login'] for i in item['following_login']]))
+            if 'followers_login' in item:
+                print("%s is followed by %s" % (login, [i['login'] for i in item['followers_login']]))
+        else:
+            print(item)
+        return item
 
 class MongoPipeline(object):
 
