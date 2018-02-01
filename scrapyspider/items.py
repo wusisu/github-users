@@ -8,7 +8,17 @@
 import scrapy
 
 
-class ScrapyspiderItem(scrapy.Item):
+class UserItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    login = scrapy.Field()
+    data = scrapy.Field()
+    data_with_email = scrapy.Field()
+    following_ok = scrapy.Field()
+    followers_ok = scrapy.Field()
+
+
+class FollowItem(scrapy.Item):
+    # define the fields for your item here like:
+    login = scrapy.Field()
+    following_login = scrapy.Field()
+    followers_login = scrapy.Field()
