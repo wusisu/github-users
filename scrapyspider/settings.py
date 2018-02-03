@@ -8,6 +8,7 @@
 #     https://doc.scrapy.org/en/latest/topics/settings.html
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
+import os
 
 BOT_NAME = 'scrapyspider'
 
@@ -91,5 +92,5 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-MONGO_URL = 'mongodb://192.168.0.48:27017'
-MONGO_DB = 'scrapy'
+MONGO_URL = os.getenv('MONGO_URL', 'mongodb://192.168.0.48:27017')
+MONGO_DB = os.getenv('MONGO_DB', 'scrapy')
