@@ -6,7 +6,7 @@ from scrapyspider import settings
 
 class Mongoing(object):
     _client = None
-    _db = settings.MONGO_DB
+    _db = settings.MONGO_DATABASE
 
     @staticmethod
     def new_instance():

@@ -81,6 +81,6 @@ if __name__ == '__main__':
     for item in to_be_checked:
         queue.put(item)
     # runner(queue)
-    for i in range(30):
+    for i in range(32):
         t = threading.Thread(target=runner, args=(queue,))
         t.start()

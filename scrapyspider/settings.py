@@ -54,9 +54,9 @@ COOKIES_ENABLED = False
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'scrapyspider.middlewares.download.ScrapyspiderDownloaderMiddleware': 543,
+   # 'scrapyspider.middlewares.download.ScrapyspiderDownloaderMiddleware': 543,
    'scrapyspider.middlewares.useragent.RotateUserAgentMiddleware': 1,
-   'scrapyspider.middlewares.proxy.ProxyMiddleware': 100,
+   'scrapyspider.middlewares.proxy.ProxyMiddleware': 600,
 }
 
 # Enable or disable extensions
@@ -68,7 +68,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'scrapyspider.pipelines.TestPipeline': 300,
+   # 'scrapyspider.pipelines.TestPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -93,4 +93,4 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 MONGO_URL = os.getenv('MONGO_URL', 'mongodb://192.168.0.48:27017')
-MONGO_DB = os.getenv('MONGO_DB', 'scrapy')
+MONGO_DATABASE = os.getenv('MONGO_DATABASE', 'scrapy')

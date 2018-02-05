@@ -54,4 +54,4 @@ class GithubSpider(scrapy.Spider):
             for link in links:
                 if link['rel'] == 'next':
                     if link['url']:
-                        yield scrapy.Request(link['url'], self.parse_follow)
+                        yield scrapy.Request(link['url'], callback=self.parse_follow)

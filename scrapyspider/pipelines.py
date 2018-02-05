@@ -35,6 +35,7 @@ class TestPipeline(object):
             print(item)
         return item
 
+
 class MongoPipeline(object):
 
     collection_name = 'scrapy_items'
