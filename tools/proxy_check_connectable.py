@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import threading
 import time
-from queue import Queue
+from queue import Queue, Empty
 
 import logging
 import requests
@@ -15,8 +15,15 @@ logger.setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler())
 
 
+def get_nowait_none_for_empty(queue):
+    try:
+        return queue.get_nowait()
+    except Empty:
+        return None
+
+
 def runner(queue):
-    proxy_item = queue.get_nowait()
+    proxy_item = get_nowait_none_for_empty(queue)
     while proxy_item:
         url = proxy_item['url']
         succeed = False
@@ -56,7 +63,9 @@ def runner(queue):
         })
         logger.info("%s %s" % (url, succeed))
 
-        proxy_item = queue.get_nowait()
+        proxy_item = get_nowait_none_for_empty(queue)
+
+    logger.info("exiting...")
 
 
 if __name__ == '__main__':
@@ -72,6 +81,6 @@ if __name__ == '__main__':
     for item in to_be_checked:
         queue.put(item)
     # runner(queue)
-    for i in range(30):
+    for i in range(32):
         t = threading.Thread(target=runner, args=(queue,))
         t.start()
