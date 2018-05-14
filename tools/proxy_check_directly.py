@@ -28,7 +28,7 @@ def run():
         try:
             response = requests.get('http://myip.ipip.net', proxies={'http': url, 'https': url}, timeout=20)
             if response.status_code == 200 and response.text and response.text.startswith('当前 '):
-                logging.info(index, 'succeed for', url)
+                print(index, 'succeed for', url)
                 got.put_nowait(url)
                 succeed = True
         except Timeout:
@@ -40,9 +40,9 @@ def run():
         except ChunkedEncodingError:
             exception = ChunkedEncodingError.__name__
         except Exception as e:
-            exception = e.__name__
+            exception = e
         if not succeed:
-            logging.info(index, 'failed for', url, exception, error)
+            print(index, 'failed for', url, exception, error)
 
 
 def collect():
